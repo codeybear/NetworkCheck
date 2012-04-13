@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net.Mail;
 using System.Windows.Forms;
 
 namespace NetworkCheck
@@ -58,6 +59,37 @@ namespace NetworkCheck
                                              DateTime.Now + 
                                              Environment.NewLine + 
                                              message);
+            }
+        }
+
+        /// <summary>
+        /// Send failure message to a list of recipients
+        /// </summary>
+        public static void SendMail(string[] recipients, string serverName, string output)
+        {
+            try
+            {
+                SmtpClient mail = new SmtpClient(Properties.Settings.Default.Host, Properties.Settings.Default.Port);
+
+                using (MailMessage msg = new MailMessage())
+                {
+                    foreach (string recipient in recipients)
+                        msg.To.Add(recipient);
+
+                    msg.From = new MailAddress("do-not-reply@english-heritage.org.uk");
+                    msg.Subject = "Website Notification.";
+                    msg.Body = "The network monitoring tool cannot connect to the following server - " +
+                               serverName + Environment.NewLine + Environment.NewLine +
+                               "Ping output:" + Environment.NewLine +
+                               output;
+
+                    mail.Send(msg);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("SendMail failed");
+                throw;
             }
         }
     }

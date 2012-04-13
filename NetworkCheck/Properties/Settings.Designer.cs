@@ -40,5 +40,14 @@ namespace NetworkCheck.Properties {
                 return ((int)(this["Port"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ping.exe")]
+        public string Command {
+            get {
+                return ((string)(this["Command"]));
+            }
+        }
     }
 }
