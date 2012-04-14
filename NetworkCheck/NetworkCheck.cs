@@ -49,7 +49,7 @@ namespace NetworkCheck
         private static int ParseOutputForLostCount(string output) {
             string[] lines = output.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
             // Get the results line i.e. "Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)"
-            string resultLine = lines.First(line => line.Trim() == "Packets:");
+            string resultLine = lines.First(line => line.Trim().StartsWith("Packets:"));
             // Parse out the lost count
             string lost = resultLine.Split(new string[] { ", " }, StringSplitOptions.None)[2];
             lost = lost.Substring(lost.IndexOf("= ") + 2);
