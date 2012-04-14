@@ -43,6 +43,7 @@ namespace NetworkCheck
 
             try {
                 // Write to system event log
+                Console.WriteLine(ex.Message);
                 WriteToEventApplicationLog(Application.ProductName, message);
             }
             catch {
