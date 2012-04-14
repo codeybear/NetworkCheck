@@ -10,10 +10,8 @@ namespace NetworkCheck
         /// <summary>
         /// Get the output from a command line program
         /// </summary>
-        public static string GetCommandLineOutput(string command, string arguments)
-        {
-            using (Process process = new Process())
-            {
+        public static string GetCommandLineOutput(string command, string arguments) {
+            using (Process process = new Process()) {
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.FileName = command;
@@ -28,36 +26,31 @@ namespace NetworkCheck
         /// <summary>
         /// Write a message to the event log
         /// </summary>
-        public static void WriteToEventApplicationLog(string source, string message)
-        {
+        public static void WriteToEventApplicationLog(string source, string message) {
             if (!EventLog.SourceExists(source))
                 EventLog.CreateEventSource(source, "Application");
 
             EventLog.WriteEntry(source, message);
-            
         }
 
         /// <summary>
         /// Attempt to write a message to the event log, on fail write to a local file
         /// </summary>
-        public static void WriteException(Exception ex)
-        {
+        public static void WriteException(Exception ex) {
             string message = ex.Message + Environment.NewLine +
                              "Callstack:" + Environment.NewLine +
                              ex.StackTrace;
 
-            try
-            {
+            try {
                 // Write to system event log
-                WriteToEventApplicationLog(Application.ProductName, message);                
+                WriteToEventApplicationLog(Application.ProductName, message);
             }
-            catch
-            {
+            catch {
                 // Unable to write to event log, write to a text file
-                System.IO.File.AppendAllText("ErrorLog.txt", 
+                System.IO.File.AppendAllText("ErrorLog.txt",
                                              Environment.NewLine +
-                                             DateTime.Now + 
-                                             Environment.NewLine + 
+                                             DateTime.Now +
+                                             Environment.NewLine +
                                              message);
             }
         }
@@ -65,14 +58,11 @@ namespace NetworkCheck
         /// <summary>
         /// Send failure message to a list of recipients
         /// </summary>
-        public static void SendMail(string[] recipients, string serverName, string output)
-        {
-            try
-            {
+        public static void SendMail(string[] recipients, string serverName, string output) {
+            try {
                 SmtpClient mail = new SmtpClient(Properties.Settings.Default.Host, Properties.Settings.Default.Port);
 
-                using (MailMessage msg = new MailMessage())
-                {
+                using (MailMessage msg = new MailMessage()) {
                     foreach (string recipient in recipients)
                         msg.To.Add(recipient);
 
@@ -86,8 +76,7 @@ namespace NetworkCheck
                     mail.Send(msg);
                 }
             }
-            catch
-            {
+            catch {
                 Console.WriteLine("SendMail failed");
                 throw;
             }

@@ -11,6 +11,9 @@ namespace NetworkCheck
         string[] _addresses;
         string[] _recipients;
 
+        /// <summary>
+        /// Load in the list of addresses and recipients
+        /// </summary>
         public NetworkCheck(string addressFile, string recipientFile) {
             _addresses = GetConfigFileToEnumerable(addressFile).ToArray();
             _recipients = GetConfigFileToEnumerable(recipientFile).ToArray();
@@ -27,7 +30,8 @@ namespace NetworkCheck
                 if (lost > 0) {
                     Console.WriteLine("Not found " + address);
                     Utils.SendMail(_recipients, address, output);
-                } else
+                }
+                else
                     Console.WriteLine("Found " + address);
             }
         }
@@ -40,7 +44,7 @@ namespace NetworkCheck
         }
 
         /// <summary>
-        /// Parse the output of http-ping.exe and get hold of the count of lost packets
+        /// Parse the output of ping command and get hold of the count of lost packets
         /// </summary>
         private static int ParseOutputForLostCount(string output) {
             string[] lines = output.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
