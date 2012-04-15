@@ -11,8 +11,9 @@ namespace NetworkCheck
         [STAThread]
         static void Main(string[] args) {
             try {
-                string addressFile = args.Length > 0 ? args[0] : Path.Combine(Environment.CurrentDirectory, "Addresses.txt");
-                string recipientFile = args.Length > 1 ? args[1] : Path.Combine(Environment.CurrentDirectory, "Recipients.txt");
+                string exePath = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
+                string addressFile = args.Length > 0 ? args[0] : Path.Combine(exePath, "Addresses.txt");
+                string recipientFile = args.Length > 1 ? args[1] : Path.Combine(exePath, "Recipients.txt");
 
                 NetworkCheck networkCheck = new NetworkCheck(addressFile, recipientFile);
                 networkCheck.Check();
