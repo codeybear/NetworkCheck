@@ -61,7 +61,10 @@ namespace NetworkCheck
         /// </summary>
         public static void SendMail(string[] recipients, string serverName, string output) {
             try {
-                SmtpClient mail = new SmtpClient(Properties.Settings.Default.Host, Properties.Settings.Default.Port);
+                SmtpClient mail = new SmtpClient();
+
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.Host))
+                    mail = new SmtpClient(Properties.Settings.Default.Host, Convert.ToInt32(Properties.Settings.Default.Port));
 
                 using (MailMessage msg = new MailMessage()) {
                     foreach (string recipient in recipients)

@@ -25,7 +25,7 @@ namespace NetworkCheck.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sdces01")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Host {
             get {
                 return ((string)(this["Host"]));
@@ -34,10 +34,10 @@ namespace NetworkCheck.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("25")]
-        public int Port {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Port {
             get {
-                return ((int)(this["Port"]));
+                return ((string)(this["Port"]));
             }
         }
         
